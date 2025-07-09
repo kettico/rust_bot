@@ -1,0 +1,35 @@
+# docker-compose.yml
+version: "3.8" # Use a recent version for modern features
+
+services:
+  bot:
+    # 'build: .' tells Docker Compose to look for a Dockerfile in the current directory
+    # and build an image from it. This is crucial for your multi-stage build.
+    build: .
+
+    # You can optionally give your image a specific name.
+    # If not specified, Compose will auto-generate one (e.g., yourprojectname-bot).
+    image: your-discord-bot-name:latest
+
+    # A human-readable name for the running container.
+    container_name: my-discord-bot-container
+
+    # Define environment variables.
+    # Using ${VAR_NAME} allows Compose to read from a .env file (recommended).
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      # Add any other environment variables your bot needs (e.g., API keys, database URLs)
+      # - OTHER_CONFIG_VAR=${OTHER_CONFIG_VAR_VALUE}
+
+    # This ensures your bot automatically restarts if it crashes or the Docker daemon restarts.
+    # 'unless-stopped' means it will restart unless you explicitly stop it (e.g., `docker compose stop bot`).
+    restart: unless-stopped
+
+    # Mount logs directory for persistence and host access
+    volumes:
+      - ./logs:/app/logs
+
+    # Optional: If your bot needs to listen on a specific port (e.g., for a webhook or dashboard).
+    # For most pure Discord bots, this is not needed as they communicate outbound.
+    # ports:
+    #   - "8080:8080" # Host_Port:Container_Port

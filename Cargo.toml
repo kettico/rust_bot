@@ -1,0 +1,20 @@
+[package]
+name = "rust_bot"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serenity = { version = "0.12.4", features = ["client", "gateway", "rustls_backend", "voice", "standard_framework", "cache", "framework", "http"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "process", "signal", "sync"] }
+poise = {version = "0.6", default-features = true}
+dotenv = "0.15"
+reqwest = "0.12.20"
+env_logger = "0.11.8"
+log = "0.4.27"
+audiopus = "0.2.0"
+songbird = {version="0.5.0", features=["builtin-queue"]}
+symphonia = {version ="0.5", features = ["aac", "mp3", "isomp4", "alac"] }
+tracing-subscriber = {version="0.3.19", features = ["env-filter"] }
+tracing = "0.1.41"
+tracing-appender = "0.2.3"
+
